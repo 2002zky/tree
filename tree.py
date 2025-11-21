@@ -345,3 +345,43 @@ labels = ['Outlook', 'Temperature', 'Humidity', 'Windy']
 # 生成决策树
 tree = creat_tree(weather_data, labels[:])  # 注意传入拷贝 labels[:]
 create_plot(tree)
+def load_lenses_data(file_path):
+    """    
+    读取lenses.txt文件    
+    """    
+    dataset = []    
+    with open(file_path, 'r', 
+encoding='utf-8') as f:        
+     for line in f:            
+        items = line.strip().split('\t')            
+        dataset.append(items)    
+    return dataset
+def main():    
+    """    
+    主函数：使用lenses数据集    
+    """    
+    # 加载数据    
+    file_path = r'D:\学习\机器学习\tree\lenses.txt'    
+    lenses_data = load_lenses_data(file_path)        
+    # 特征标签    
+    lenses_labels = ['年龄', '屈光', '散光', '泪液分泌']        
+    print("数据集大小:", len(lenses_data))    
+    print("前5条数据:")    
+    for i in range(min(5, len(lenses_data))):        
+        print(lenses_data[i])        
+    # 生成决策树    
+    print("\n正在生成决策树...")    
+    tree = creat_tree(lenses_data, lenses_labels[:])    
+    print("决策树结构:", tree)        
+    # 计算训练集准确率    
+    accuracy =accuracy(tree, lenses_data, lenses_labels)    
+    print(f"\n训练集准确率: {accuracy:.2f}%")        
+    # 绘制决策树    
+    print("正在绘制决策树...")
+    create_plot(tree)
+    if __name__ == "__main__":    
+        main()
+        # # 生成决策树
+        # tree = creat_tree(weather_data, labels[:])  
+        # 注意传入拷贝 labels[:]
+        # create_plot(tree)
